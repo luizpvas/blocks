@@ -1,0 +1,17 @@
+http:
+  static_files_dir: .
+resources:
+  todos:
+    fields:
+      description:
+        type: text
+        label: Description
+        placeholder: e.g. Buy milk
+        required: true
+      is_completed:
+        type: checkbox
+        label: Is completed?
+        required: true
+        default: false
+
+        
