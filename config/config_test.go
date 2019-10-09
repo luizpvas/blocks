@@ -26,8 +26,14 @@ resources:
 	if len(comments.Fields) != 1 {
 		t.Fatalf("failed to parse fields in the `comments` resource")
 	}
+	if comments.ID != "comments" {
+		t.Fatalf("failed to set the resource ID based on the yaml key, got: %v", comments.ID)
+	}
 
 	body := comments.Fields["body"]
+	if body.Name != "body" {
+		t.Fatalf("failed to assign field name from yaml key")
+	}
 	if body.Type != "text" {
 		t.Fatalf("failed to parse field type as `text`")
 	}

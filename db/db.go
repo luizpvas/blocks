@@ -14,6 +14,10 @@ import (
 // DB is a global shared database connection pool.
 var DB *sql.DB
 
+// Global flag that controls if txdb library has already been registered.
+// We use this flag only in testing.
+var txdbRegisteredForTesting = false
+
 // SetConnection updates the global shared database connection pool
 // to the given value. This function should be called once from the entrypoint.
 func SetConnection(db *sql.DB) {
@@ -22,7 +26,11 @@ func SetConnection(db *sql.DB) {
 
 // SetTestingConnection updates the global shared connection using txdb for testing.
 func SetTestingConnection(t *testing.T) func() {
-	txdb.Register("txdb", "postgres", "user=blocks password=blocks dbname=blocks_test")
+	if !txdbRegisteredForTesting {
+		txdb.Register("txdb", "postgres", "user=blocks password=blocks dbname=blocks_test")
+	}
+	txdbRegisteredForTesting = true
+
 	db, err := sql.Open("txdb", "testing")
 	if err != nil {
 		t.Fatalf("could not connect to postgres: %v", err)

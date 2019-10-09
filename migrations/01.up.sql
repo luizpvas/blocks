@@ -12,5 +12,7 @@ create table sessions (
 create table records (
 	resource_id text,
 	record_id   uuid primary key,
-	attributes  jsonb
+	attributes  jsonb,
+	created_at  timestamp with time zone,
+	updated_at  timestamp with time zone
 );

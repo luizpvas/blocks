@@ -1,5 +1,5 @@
 http:
-  static_files_dir: .
+  static_files_dir: "."
 resources:
   todos:
     fields:
